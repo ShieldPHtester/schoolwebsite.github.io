@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Glass UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(45deg, #8460ed, #ff1252);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .glass-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .content {
+            position: relative;
+            color: #fff;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .team-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-container">
+        <div class="content">
+            <h1>About Or class </h1>
+            <p>My mission is to transform ideas into reality through cutting-edge video editing and creative design.</p>
+            
+            <div class="team-section">
+                <div class="team-member">
+                    <img src="images/me.jpg" alt="Team Member 1">
+                    <h3>Parker Brown</h3>
+                    <p>Cool Dude</p>
+                    </div>
+                    <div class="team-section">
+                        <div class="team-member">
+                            <img src="images/IMG_3744.jpg" alt="Team Member 1">
+                            <h3>Kameron</h3>
+                            <p>Person</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-6/465468055_9361530100528234_4186254079738940204_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=21qskK_6TmEQ7kNvgFEsaQn&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&_nc_gid=A4ogeq-v7G30z-UkWv7EI2d&oh=00_AYCPVVibK6TuYIStiRIpxHp-qvP7-CeLTnIHDi3Lei4jjA&oe=678E35C0" alt="Team Member 3">
+                    <h3>Mr. Brown</h3>
+                    <p>Teacher</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
