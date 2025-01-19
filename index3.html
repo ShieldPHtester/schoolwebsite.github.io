@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shrine to Mr. Brown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(45deg, #000428, #004e92);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 1s ease;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        body.light-theme {
+            background: linear-gradient(45deg, #f0f2f0, #e8e8e8);
+            color: #333;
+        }
+
+        .parallax-container {
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            perspective: 10px;
+        }
+
+        .shrine-section {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transform-style: preserve-3d;
+            z-index: -1;
+        }
+
+        .background {
+            position: absolute;
+            height: 100vh;
+            width: 100%;
+            object-fit: cover;
+            z-index: -1;
+            transform: translateZ(-10px) scale(2);
+        }
+
+        .mr-brown {
+            position: absolute;
+            font-size: 7rem;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            transform: translateZ(-5px) scale(1.5);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .holy-light {
+            position: absolute;
+            width: 100%;
+            height: 210%;
+            background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(0,0,0,0) 40%);
+            transform: translateZ(-3px) scale(1.3);
+            pointer-events: none;
+        }
+
+        .floating-orbs {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .orb {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .content {
+            position: relative;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            text-align: center;
+            transform: translateZ(0);
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .light-theme .content {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .content.visible {
+            opacity: 1;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.7); }
+            50% { text-shadow: 0 0 40px rgba(255, 215, 0, 0.9); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100px) translateX(50px); }
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .quote.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-section {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            transition: all 0.5s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #ffd700;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .next-page {
+            position: fixed;
+            top: 20px;
+            right: 150px;
+            padding: 10px 20px;
+            background: #ffd700;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .next-page:hover {
+            transform: scale(1.1);
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            transition: all 0.5s ease;
+        }
+
+        .light-theme .info-card {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .bottom-info {
+            text-align: center;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            margin-top: 271px;
+        }
+
+        .light-theme .bottom-info {
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle">Toggle Theme</button>
+    <button class="next-page" onclick="window.location.href='timeline.html'">Next Page</button>
+    <div class="parallax-container">
+        <section class="shrine-section">
+            <div class="background"></div>
+            <div class="holy-light"></div>
+            <h1 class="mr-brown">MR. BROWN</h1>
+            <div class="floating-orbs">
+                <!-- Orbs will be added by JavaScript -->
+            </div>
+        </section>
+
+        <div class="content">
+            <h2>The Divine Presence</h2>
+            <div class="quote">
+                "Wisdom flows through his teachings like a golden river of light."
+            </div>
+            <div class="image-gallery">
+                <!-- Add your Mr. Brown images here -->
+            </div>
+        </div>
+
+        <section class="info-section">
+            <div class="info-card">
+                <h2>The Legend of Mr. Brown</h2>
+                <p>A master of wisdom and guidance, Mr. Brown has inspired countless students through his unique teaching methods and unforgettable personality.</p>
+            </div>
+            <div class="info-card">
+                <h2>Teaching Philosophy</h2>
+                <p>Through a blend of humor, wisdom, and practical knowledge, Mr. Brown creates an environment where learning becomes an adventure.</p>
+            </div>
+            <div class="info-card">
+                <h2>Impact and Legacy</h2>
+                <p>His influence extends far beyond the classroom, shaping the future of education and inspiring the next generation of learners.</p>
+            </div>
+        </section>
+
+        <div class="bottom-info">
+            <h3>Contact Information</h3>
+            <p>Email: mr.brown@school.edu</p>
+            <p>Office Hours: Monday-Friday 8:00 AM - 3:00 PM</p>
+            <p>Location: Room 101, Main Building</p>
+            <p>© 2024 Mr. Brown Shrine. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating orbs
+        const orbsContainer = document.querySelector('.floating-orbs');
+        for (let i = 0; i < 20; i++) {
+            const orb = document.createElement('div');
+            orb.className = 'orb';
+            orb.style.left = `${Math.random() * 100}%`;
+            orb.style.top = `${Math.random() * 100}%`;
+            orb.style.animationDelay = `${Math.random() * 6}s`;
+            orbsContainer.appendChild(orb);
+        }
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.content, .quote, .info-card').forEach(el => observer.observe(el));
+
+        // Dynamic background effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            document.querySelector('.holy-light').style.background = 
+                `radial-gradient(circle at ${mouseX * 100}% ${mouseY * 100}%, 
+                rgba(255,215,0,0.3) 0%, rgba(0,0,0,0) 70%)`;
+        });
+
+        // Theme toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+        });
+    </script>
+</body>
+</html>

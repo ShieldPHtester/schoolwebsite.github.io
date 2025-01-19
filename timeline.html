@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Brown Timeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(45deg, #000428, #004e92);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        .timeline {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: #ffd700;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            transform: translateX(100px);
+        }
+
+        .timeline-item:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: #ffd700;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -67px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -67px;
+        }
+
+        .timeline-date {
+            color: #ffd700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        .timeline-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .timeline-description {
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content::before {
+                left: -67px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">1802</div>
+                <h2 class="timeline-title">A Mystical Birth</h2>
+                <p class="timeline-description">Born during a rare double rainbow in Salem, Massachusetts. Legend says he emerged speaking in complete sentences and solving complex mathematical equations.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">1820</div>
+                <h2 class="timeline-title">The Great Adventure</h2>
+                <p class="timeline-description">Sailed around the world three times on a self-made raft constructed entirely of discarded textbooks, teaching dolphins advanced calculus along the way.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">1845</div>
+                <h2 class="timeline-title">The Time Machine Incident</h2>
+                <p class="timeline-description">Allegedly built a steam-powered time machine to teach history by bringing students directly to historical events. The machine mysteriously disappeared, but the knowledge remained.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">1863</div>
+                <h2 class="timeline-title">The Great Enlightenment</h2>
+                <p class="timeline-description">Discovered a way to teach through dreams. Students would wake up fluent in Latin and proficient in quantum physics. Scientists still cannot explain this phenomenon.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">1885</div>
+                <h2 class="timeline-title">The Golden Library</h2>
+                <p class="timeline-description">Created a mystical library that could answer any question. The books were said to rewrite themselves based on the reader's curiosity.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">1901</div>
+                <h2 class="timeline-title">The Final Lecture</h2>
+                <p class="timeline-description">Gave his legendary final lecture that lasted 7 days straight. Witnesses claim the room glowed with golden light, and everyone present suddenly understood the meaning of life.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">Present</div>
+                <h2 class="timeline-title">The Eternal Teacher</h2>
+                <p class="timeline-description">Though Mr. Brown's physical form may have departed, his wisdom continues to manifest in classrooms worldwide. Sometimes I feel like he's right here with me teaching me about video editing.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
