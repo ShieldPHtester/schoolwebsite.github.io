@@ -14,11 +14,40 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(45deg, #8460ed, #ff1252);
+            background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow: hidden;
+        }
+
+        .grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .grid div {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         .glass-container {
@@ -31,6 +60,16 @@
             padding: 50px;
             box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .content {
@@ -42,86 +81,226 @@
         h1 {
             font-size: 3em;
             margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00ff88;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00a1ff;
+            }
         }
 
         p {
             font-size: 1.2em;
             line-height: 1.6;
             margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.5s;
         }
 
-        .team-section {
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .skills-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
             margin-top: 50px;
         }
 
-        .team-member {
+        .skill-card {
             background: rgba(255, 255, 255, 0.05);
             padding: 20px;
             border-radius: 15px;
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: popIn 0.6s ease forwards;
+            cursor: pointer;
         }
 
-        .team-member:hover {
-            transform: translateY(-10px);
+        .skill-card:nth-child(1) { animation-delay: 0.8s; }
+        .skill-card:nth-child(2) { animation-delay: 1s; }
+        .skill-card:nth-child(3) { animation-delay: 1.2s; }
+
+        @keyframes popIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        .team-member img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+        .skill-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 48px;
             margin-bottom: 15px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .social-links {
-            margin-top: 20px;
-        }
-
-        .social-links a {
             color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 1.2em;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .social-links a:hover {
-            opacity: 1;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .skill-name {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .skill-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff88, #00a1ff);
+            transition: width 0.3s ease;
+        }
+
+        .skill-card:hover .skill-name::after {
+            width: 100%;
+        }
+
+        .skill-description {
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00a1ff);
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease;
+            position: relative;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(400%); }
         }
     </style>
 </head>
 <body>
+    <div class="grid"></div>
     <div class="glass-container">
         <div class="content">
-            <h1>About Or class </h1>
-            <p>My mission is to transform ideas into reality through cutting-edge video editing and creative design.</p>
+            <h1>My Skills</h1>
+            <p>Here are some of the key skills I've developed in video editing and creative design.</p>
             
-            <div class="team-section">
-                <div class="team-member">
-                    <img src="images/me.jpg" alt="Team Member 1">
-                    <h3>Parker Brown</h3>
-                    <p>Cool Dude</p>
-                    </div>
-                    <div class="team-section">
-                        <div class="team-member">
-                            <img src="images/IMG_3744.jpg" alt="Team Member 1">
-                            <h3>Kameron</h3>
-                            <p>Person</p>
+            <div class="skills-section">
+                <div class="skill-card">
+                    <div class="skill-icon">🎬</div>
+                    <h3 class="skill-name">Video Editing</h3>
+                    <p class="skill-description">Proficient in Adobe Premiere Pro and After Effects</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%"></div>
                     </div>
                 </div>
-                
-                <div class="team-member">
-                    <img src="https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-6/465468055_9361530100528234_4186254079738940204_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=21qskK_6TmEQ7kNvgFEsaQn&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&_nc_gid=A4ogeq-v7G30z-UkWv7EI2d&oh=00_AYCPVVibK6TuYIStiRIpxHp-qvP7-CeLTnIHDi3Lei4jjA&oe=678E35C0" alt="Team Member 3">
-                    <h3>Mr. Brown</h3>
-                    <p>Teacher</p>
+                <div class="skill-card">
+                    <div class="skill-icon">🎨</div>
+                    <h3 class="skill-name">Graphic Design</h3>
+                    <p class="skill-description">Experience with Adobe Photoshop and Illustrator</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">💻</div>
+                    <h3 class="skill-name">Web Development</h3>
+                    <p class="skill-description">HTML, CSS, and basic JavaScript</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Create grid elements
+        const grid = document.querySelector('.grid');
+        for(let i = 0; i < 50; i++) {
+            const div = document.createElement('div');
+            div.style.left = Math.random() * 100 + '%';
+            div.style.top = Math.random() * 100 + '%';
+            div.style.animationDelay = Math.random() * 10 + 's';
+            grid.appendChild(div);
+        }
+
+        // Animate progress bars when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBar = entry.target.querySelector('.progress');
+                    const width = progressBar.parentElement.parentElement.querySelector('.skill-name').textContent.includes('Video') ? '90%' :
+                                progressBar.parentElement.parentElement.querySelector('.skill-name').textContent.includes('Graphic') ? '85%' : '75%';
+                    progressBar.style.width = width;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.skill-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add hover effect to skill cards
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.transform = `
+                    perspective(1000px)
+                    rotateX(${(y - rect.height/2) / 20}deg)
+                    rotateY(${-(x - rect.width/2) / 20}deg)
+                    translateY(-10px)
+                    scale(1.05)
+                `;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
 </body>
 </html>
