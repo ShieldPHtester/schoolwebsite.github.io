@@ -4,7 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adobe Class Portfolio - Scrollytelling</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Reset some default styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* Header styling */
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: #333;
+      color: #fff;
+    }
+
+    /* Scrollytelling sections */
+    .scrolly-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+      border-bottom: 1px solid #ccc;
+      
+      /* Initial state for the animation */
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+    }
+
+    /* When section is in view */
+    .scrolly-section.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Text and video containers */
+    .text-container, .video-container {
+      flex: 1 1 45%;
+      margin: 1rem;
+    }
+
+    /* Video styling */
+    video {
+      width: 100%;
+      height: auto;
+      border: 2px solid #333;
+    }
+
+    /* Footer styling */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f4f4f4;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -60,6 +117,29 @@
     <p>&copy; 2025 Your Name. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sections = document.querySelectorAll('.scrolly-section');
+
+      const observerOptions = {
+        threshold: 0.5
+      };
+
+      // Use IntersectionObserver to add 'in-view' class when sections are visible
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          } else {
+            entry.target.classList.remove('in-view');
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
 </body>
 </html>
